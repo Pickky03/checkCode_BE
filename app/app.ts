@@ -5,7 +5,7 @@ import authRoutes from './routes/authRoutes';
 import cors from 'cors';
 
 dotenv.config();
-// connectDB();
+connectDB();
 const app = express();
 
 //configure cors
@@ -19,5 +19,5 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use('/api/auth', authRoutes);
+app.use('/api', authRoutes);
 export default app; 
