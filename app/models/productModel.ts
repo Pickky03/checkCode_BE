@@ -4,14 +4,14 @@ export interface IProduct extends Document {
   name: string;
   quantity: number;
   time: Date;
-  type: string;
+  type: "24k" | "10k" | "23k" | "bac";
 }
 
 const productSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   quantity: { type: Number, required: true },
-  time: { type: Date, required: true },
-  type: { type: String, required: true },
+  time: { type: Date, required: false },
+  type: { type: String, enum: ["24k", "10k", "23k", "bac"], required: true },
 }, {
   timestamps: true,
 });

@@ -2,7 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
-import productRoutes from './routes/productRoutes';
+// import productRoutes from './routes/productRoutes';
+import transactionRoutes from './routes/transactionRoutes'
 import cors from 'cors';
 
 dotenv.config();
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use('/api', authRoutes);
-app.use('/api', productRoutes);
+// app.use('/api', productRoutes);
+app.use('/api', transactionRoutes)
 export default app; 
