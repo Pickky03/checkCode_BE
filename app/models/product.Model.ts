@@ -13,6 +13,7 @@ export interface IProduct {
   category: string;
   price: number;
   description?: string;
+  material?: string;
   status: "active" | "inactive";
 }
 
@@ -49,6 +50,11 @@ const productSchema = new Schema<IProduct>(
       type: Number,
       default: 0,
       min: 0,
+    },
+
+    material: {
+      type: String,
+      default: "",
     },
 
     category: {
