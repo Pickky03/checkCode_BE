@@ -1,11 +1,11 @@
 {
-  "name": "shgold",
+  "name": "Checkcode",
   "module": "app/app.ts",
   "type": "commonjs",
   "scripts": {
     "dev": "ts-node-dev --respawn app/server.ts",
     "build": "next build",
-    "start": "node dist/server.js"
+    "start": "node dist/server.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
