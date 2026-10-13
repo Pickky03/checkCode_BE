@@ -2,6 +2,10 @@ import express from 'express';
 import 'dotenv/config';
 import connectDB from './config/db';
 import productRoutes from './routes/product.Route';
+import orderRouter from './routes/order.Route';
+import adminOrderRouter from './routes/adminOrder.Route'
+import supplierRoutes from './routes/supplier.Route'
+import importRoutes from './routes/import.Route'
 import cors from 'cors';
 
 
@@ -20,24 +24,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use('/api', productRoutes);
-// app.use(
-//   (
-//     err: any,
-//     req: Request,
-//     res: Response,
-//     next: NextFunction
-//   ) => {  
-//     if (err instanceof multer.MulterError) {
-//       console.log("Multer error field:", err.field);
-
-//       return res.status(400).json({
-//         success: false,
-//         message: err.message,
-//         field: err.field,
-//       });
-//     }
-
-//     next(err);
-//   }
-// );
+app.use('/api', orderRouter);
+app.use('/api', adminOrderRouter)
+app.use('/api', supplierRoutes)
+app.use('/api', importRoutes)
 export default app; 

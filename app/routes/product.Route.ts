@@ -22,7 +22,7 @@ router.get("/getproducts", getProducts);
 
 router.get("/getproductbyid/:id", getProductById);
 
-router.put(
+router.patch(
   "/updateproduct/:id",
   upload.array("images", 10),
   updateProduct

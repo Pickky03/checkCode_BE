@@ -4,45 +4,45 @@ import { uploadImage, deleteImage } from "../services/cloudinary.Service";
 
 //create product
 export const createProduct = async (
-    req: Request,
-    res: Response
-  ) => {
-    try {
-      const files = req.files as Express.Multer.File[];
-  
-      const images = [];
-  
-      if (files?.length) {
-        for (const file of files) {
-          const uploadedImage = await uploadImage(file.buffer);
-  
-          images.push(uploadedImage);
-        }
+  req: Request,
+  res: Response
+) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+
+    const images = [];
+
+    if (files?.length) {
+      for (const file of files) {
+        const uploadedImage = await uploadImage(file.buffer);
+
+        images.push(uploadedImage);
       }
+    }
     //   console.log("body:", req.body);
     //   console.log("files:", req.files);
-      const product = await productService.createProduct({
-        ...req.body,
-        quantity: Number(req.body.quantity),
-        price: Number(req.body.price),
-        images,
-      });
-  
-      return res.status(201).json({
-        success: true,
-        message: "Tạo sản phẩm thành công",
-        data: product,
-      });
-    } catch (error) {
-      return res.status(400).json({
-        success: false,
-        message:
-          error instanceof Error
-            ? error.message
-            : "Có lỗi xảy ra",
-      });
-    }
-  };
+    const product = await productService.createProduct({
+      ...req.body,
+      quantity: Number(req.body.quantity),
+      price: Number(req.body.price),
+      images,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Tạo sản phẩm thành công",
+      data: product,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Có lỗi xảy ra",
+    });
+  }
+};
 
 
 // get products
