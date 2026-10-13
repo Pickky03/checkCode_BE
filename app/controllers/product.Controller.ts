@@ -51,17 +51,22 @@ export const getProducts = async (
   res: Response
 ) => {
   try {
-    const products = await productService.getProducts();
+    const result =
+      await productService.getProducts(
+        req.query
+      );
 
     return res.status(200).json({
       success: true,
-      data: products,
+      ...result,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message:
-        error instanceof Error ? error.message : "Có lỗi xảy ra",
+        error instanceof Error
+          ? error.message
+          : "Có lỗi xảy ra",
     });
   }
 };

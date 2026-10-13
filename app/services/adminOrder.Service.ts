@@ -1,9 +1,43 @@
 import { Order } from "../models/order.Model";
 import { Product } from "../models/product.Model";
+import {
+    getPagination,
+    getPaginationMeta,
+    buildSearchFilter,
+} from "../utils/query";
+export const getOrders = async (
+    query: any
+) => {
+    const { page, limit, skip } =
+        getPagination(query.page, query.limit);
 
-export const getOrders = async () => {
-    return await Order.find()
-        .sort({ createdAt: -1 });
+    const filter = buildSearchFilter(
+        query.search,
+        [
+            "orderCode",
+            "customer.name",
+            "customer.phone",
+        ]
+    );
+
+    const [orders, total] =
+        await Promise.all([
+            Order.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+
+            Order.countDocuments(filter),
+        ]);
+
+    return {
+        data: orders,
+        pagination: getPaginationMeta(
+            total,
+            page,
+            limit
+        ),
+    };
 };
 
 export const getOrderById = async (

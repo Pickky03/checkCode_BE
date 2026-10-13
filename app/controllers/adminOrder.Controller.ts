@@ -6,7 +6,7 @@ export const getOrders = async (
     res: Response
 ) => {
     try {
-        const orders = await adminOrderService.getOrders();
+        const orders = await adminOrderService.getOrders(req.query);
 
         return res.status(200).json({
             success: true,

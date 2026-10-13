@@ -10,8 +10,8 @@ const router = Router();
 
 router.post("/import", createImport);
 
-router.get("/getall", getImports);
+router.get("/getimport", getImports);
 
-router.get("/getbyid/:id", getImportById);
+router.get("/getimportbyid/:id", getImportById);
 
 export default router;

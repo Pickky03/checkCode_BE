@@ -1,5 +1,9 @@
 import { Supplier, ISupplier } from "../models/supplier.Model";
-
+import {
+    getPagination,
+    getPaginationMeta,
+    buildSearchFilter,
+} from "../utils/query";
 export const createSupplier = async (
     data: Partial<ISupplier>
 ) => {
@@ -17,10 +21,35 @@ export const createSupplier = async (
     return await Supplier.create(data);
 };
 
-export const getSuppliers = async () => {
-    return await Supplier.find().sort({
-        createdAt: -1,
-    });
+export const getSuppliers = async (
+    query: any
+) => {
+    const { page, limit, skip } =
+        getPagination(query.page, query.limit);
+
+    const filter = buildSearchFilter(
+        query.search,
+        ["name", "phone", "taxCode"]
+    );
+
+    const [suppliers, total] =
+        await Promise.all([
+            Supplier.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+
+            Supplier.countDocuments(filter),
+        ]);
+
+    return {
+        data: suppliers,
+        pagination: getPaginationMeta(
+            total,
+            page,
+            limit
+        ),
+    };
 };
 
 export const getSupplierById = async (
