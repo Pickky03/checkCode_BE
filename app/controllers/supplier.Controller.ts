@@ -33,7 +33,7 @@ export const getSuppliers = async (
 ) => {
     try {
         const suppliers =
-            await supplierService.getSuppliers();
+            await supplierService.getSuppliers(req.query);
 
         return res.status(200).json({
             success: true,
